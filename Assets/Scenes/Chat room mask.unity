@@ -657,8 +657,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image_prefab: {fileID: 1183554211747232624, guid: 3388e56e98f38d044af187c8630d40f7,
     type: 3}
+  text_prefab: {fileID: 1393043785995471494, guid: af1371633e82d2a49954cd40dc916a1d,
+    type: 3}
   container: {fileID: 382469247}
-  listMaxCount: 2
+  listMaxCount: 15
+  slideSpeed: 3.5
 --- !u!4 &2080776461
 Transform:
   m_ObjectHideFlags: 0
