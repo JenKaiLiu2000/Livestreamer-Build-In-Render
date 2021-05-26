@@ -396,7 +396,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -22, y: -315}
+  m_AnchoredPosition: {x: -240, y: -211}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &382469249
@@ -573,8 +573,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -97.9, y: -373.4}
-  m_SizeDelta: {x: -195.70691, y: -746.93744}
+  m_AnchoredPosition: {x: -159.1, y: -478.2}
+  m_SizeDelta: {x: -469.97955, y: -956.40936}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1959191921
 MonoBehaviour:
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -625,7 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
+  m_ShowMaskGraphic: 0
 --- !u!1 &2080776459
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,9 +659,17 @@ MonoBehaviour:
     type: 3}
   text_prefab: {fileID: 1393043785995471494, guid: af1371633e82d2a49954cd40dc916a1d,
     type: 3}
+  DialogBox_prefab: {fileID: 6408546216397257778, guid: eacaf0aa85d1bde4c9562ea62342a2b6,
+    type: 3}
   container: {fileID: 382469247}
   listMaxCount: 15
   slideSpeed: 3.5
+  _fontSize: 30
+  textBox_MaxWidth: 450
+  DialogBox_Top_Botton_border: 15
+  DialogBox_Left_Right_border: 20
+  textColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  DialogBoxColor: {r: 0.37254903, g: 0.37254903, b: 0.37254903, a: 0.5882353}
 --- !u!4 &2080776461
 Transform:
   m_ObjectHideFlags: 0
