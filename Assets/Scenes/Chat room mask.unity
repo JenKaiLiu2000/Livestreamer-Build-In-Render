@@ -537,6 +537,64 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1841076893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1841076895}
+  - component: {fileID: 1841076894}
+  m_Layer: 0
+  m_Name: Chat Room Manerger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1841076894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841076893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b866a76f29b1784b84cdff24e093b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image_prefab: {fileID: 1183554211747232624, guid: 3388e56e98f38d044af187c8630d40f7,
+    type: 3}
+  text_prefab: {fileID: 1393043785995471494, guid: af1371633e82d2a49954cd40dc916a1d,
+    type: 3}
+  DialogBox_prefab: {fileID: 6408546216397257778, guid: eacaf0aa85d1bde4c9562ea62342a2b6,
+    type: 3}
+  container: {fileID: 382469247}
+  listMaxCount: 15
+  slideSpeed: 3.5
+  _fontSize: 30
+  textBox_MaxWidth: 450
+  DialogBox_Top_Botton_padding: 15
+  DialogBox_Left_Right_padding: 20
+  textColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  DialogBoxColor: {r: 0.37254903, g: 0.37254903, b: 0.37254903, a: 0.5882353}
+--- !u!4 &1841076895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841076893}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 421.75552, y: 234.40523, z: -419.20996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959191919
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,61 +684,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!1 &2080776459
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2080776461}
-  - component: {fileID: 2080776460}
-  m_Layer: 0
-  m_Name: gameManerger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2080776460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080776459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afa66617697aa740a62238f6192da50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image_prefab: {fileID: 1183554211747232624, guid: 3388e56e98f38d044af187c8630d40f7,
-    type: 3}
-  text_prefab: {fileID: 1393043785995471494, guid: af1371633e82d2a49954cd40dc916a1d,
-    type: 3}
-  DialogBox_prefab: {fileID: 6408546216397257778, guid: eacaf0aa85d1bde4c9562ea62342a2b6,
-    type: 3}
-  container: {fileID: 382469247}
-  listMaxCount: 15
-  slideSpeed: 3.5
-  _fontSize: 30
-  textBox_MaxWidth: 450
-  DialogBox_Top_Botton_padding: 15
-  DialogBox_Left_Right_padding: 20
-  textColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
-  DialogBoxColor: {r: 0.37254903, g: 0.37254903, b: 0.37254903, a: 0.5882353}
---- !u!4 &2080776461
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080776459}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 371.8786, y: 303.6247, z: -948.6346}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
