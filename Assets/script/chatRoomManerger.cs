@@ -29,9 +29,9 @@ public class chatRoomManerger : MonoBehaviour
     [Tooltip("對話框左右padding距離")]
     public float _dialogBox_Left_Right_Padding = 20; //對話框左右padding距離
     [Tooltip("文字顏色")]
-    public Color _textColor = new Color(190, 190, 190); //文字顏色
+    public Color _textColor = new Color(255, 255, 255,195); //文字顏色
     [Tooltip("對話框顏色")]
-    public Color _dialogBoxColor = new Color(95, 95, 95, 150); //對話框顏色
+    public Color _dialogBoxColor = new Color(0, 0, 0, 65); //對話框顏色
 
     Vector3 _containerOriginPos;
     List<GameObject> _messages = new List<GameObject>();

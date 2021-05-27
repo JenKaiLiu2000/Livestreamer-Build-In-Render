@@ -761,16 +761,16 @@ MonoBehaviour:
   _dialogBoxPrefab: {fileID: 6408546216397257778, guid: eacaf0aa85d1bde4c9562ea62342a2b6,
     type: 3}
   _container: {fileID: 641811463}
-  _liveStreamer: {fileID: 0}
-  _whitchMessage: 0
+  _liveStreamer: {fileID: 1479283827}
+  _whitchMessage: 2
   _listMaxCount: 15
   _slideSpeed: 3.5
   _fontSize: 30
   _textBox_MaxWidth: 450
-  _dialogBox_Top_Botton_padding: 15
-  _dialogBox_Left_Right_padding: 20
-  _textColor: {r: 190, g: 190, b: 190, a: 1}
-  _dialogBoxColor: {r: 95, g: 95, b: 95, a: 150}
+  _dialogBox_Top_Botton_Padding: 15
+  _dialogBox_Left_Right_Padding: 20
+  _textColor: {r: 1, g: 1, b: 1, a: 0.7647059}
+  _dialogBoxColor: {r: 0, g: 0, b: 0, a: 0.25490198}
   _messageDatas: []
 --- !u!4 &909327124
 Transform:

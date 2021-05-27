@@ -625,8 +625,8 @@ MonoBehaviour:
   _textBox_MaxWidth: 450
   _dialogBox_Top_Botton_Padding: 15
   _dialogBox_Left_Right_Padding: 20
-  _textColor: {r: 0.74509805, g: 0.74509805, b: 0.74509805, a: 1}
-  _dialogBoxColor: {r: 0.37254903, g: 0.37254903, b: 0.37254903, a: 0.5882353}
+  _textColor: {r: 1, g: 1, b: 1, a: 0.7647059}
+  _dialogBoxColor: {r: 0, g: 0, b: 0, a: 0.25490198}
   _messageDatas: []
 --- !u!4 &1841076895
 Transform:
