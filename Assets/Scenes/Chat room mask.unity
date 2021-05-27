@@ -750,7 +750,7 @@ MonoBehaviour:
   _container: {fileID: 382469247}
   _liveStreamer: {fileID: 884386894}
   _scoreDisplay: {fileID: 910922408}
-  _whitchMessage: 2
+  _whitchMessage: 0
   _listMaxCount: 15
   _slideSpeed: 3.5
   _fontSize: 30
