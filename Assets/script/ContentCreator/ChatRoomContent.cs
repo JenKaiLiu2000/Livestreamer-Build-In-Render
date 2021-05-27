@@ -22,5 +22,5 @@ public abstract class MessageCreator
         _manerger = manerger;
     }
 
-    public abstract GameObject createContent();
+    public abstract GameObject createMessage();
 }

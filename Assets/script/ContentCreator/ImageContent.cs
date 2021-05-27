@@ -6,9 +6,9 @@ public class ImageMessage : MessageCreator
 {
     public ImageMessage(chatRoomManerger manerger) : base(manerger) { }
 
-    public override GameObject createContent()
+    public override GameObject createMessage()
     {
-        //將我們先前準備的圖片prefab載入。
+        //將我們先前準備的image prefab載入。
         GameObject product = _image_prefab;
         //隨機設定圖片高度(製造出變化性)。
         product.GetComponent<RectTransform>().sizeDelta = new Vector2(_manerger._textBox_MaxWidth, Random.Range(50, 200));
