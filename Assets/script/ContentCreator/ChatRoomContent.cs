@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ChatRoomContent
+public abstract class MessageCreator
 {
     public GameObject _image_prefab;
     public GameObject _text_prefab;
     public GameObject _dialog_prefab;
     public chatRoomManerger _manerger;
 
-    public ChatRoomContent(chatRoomManerger manerger)
+    public enum WhitchMessage
     {
-        _image_prefab = manerger.image_prefab;
-        _text_prefab = manerger.text_prefab;
-        _dialog_prefab = manerger.DialogBox_prefab;
+        image, text, dialogBox
+    }
+
+    public MessageCreator(chatRoomManerger manerger)
+    {
+        _image_prefab = manerger._imagePrefab;
+        _text_prefab = manerger._textPrefab;
+        _dialog_prefab = manerger._dialogBoxPrefab;
         _manerger = manerger;
     }
 

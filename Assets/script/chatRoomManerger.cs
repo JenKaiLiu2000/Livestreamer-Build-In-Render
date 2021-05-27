@@ -7,131 +7,173 @@ using System.Text;
 public class chatRoomManerger : MonoBehaviour
 {
     [Header("Reference")]
-    public GameObject image_prefab;
-    public GameObject text_prefab;
-    public GameObject DialogBox_prefab;
-    public GameObject container;
+    public GameObject _imagePrefab;
+    public GameObject _textPrefab;
+    public GameObject _dialogBoxPrefab;
+    public GameObject _container;
+    public liveStreamer _liveStreamer;
     [Header("Process Controler")]
+    [Tooltip("內容的型態")]
+    public MessageCreator.WhitchMessage _whitchMessage = MessageCreator.WhitchMessage.dialogBox;
     [Tooltip("內容數限量誌")]
-    public int listMaxCount = 15; //內容數限量誌
+    public int _listMaxCount = 15; //內容數限量誌
     [Tooltip("動態滑動效果的速度")]
-    public float slideSpeed = 3.5f; //動態滑動效果的速度
+    public float _slideSpeed = 3.5f; //動態滑動效果的速度
     [Header("Dialog Box Setting")]
     [Tooltip("字級大小")]
     public int _fontSize = 30; //字級大小
     [Tooltip("對話框寬度")]
-    public float textBox_MaxWidth = 450; //對話框寬度
+    public float _textBox_MaxWidth = 450; //對話框寬度
     [Tooltip("對話框上下padding距離")]
-    public float DialogBox_Top_Botton_padding = 15; //對話框上下padding距離
+    public float _dialogBox_Top_Botton_Padding = 15; //對話框上下padding距離
     [Tooltip("對話框左右padding距離")]
-    public float DialogBox_Left_Right_padding = 20; //對話框左右padding距離
+    public float _dialogBox_Left_Right_Padding = 20; //對話框左右padding距離
     [Tooltip("文字顏色")]
-    public Color textColor = new Color(190, 190, 190); //文字顏色
+    public Color _textColor = new Color(190, 190, 190); //文字顏色
     [Tooltip("對話框顏色")]
-    public Color DialogBoxColor = new Color(95, 95, 95, 150); //對話框顏色
+    public Color _dialogBoxColor = new Color(95, 95, 95, 150); //對話框顏色
 
-    Vector3 originPos;
-    List<GameObject> contentsList = new List<GameObject>();
-    ChatRoomContent chatRoomContent;
+    Vector3 _containerOriginPos;
+    List<GameObject> _messages = new List<GameObject>();
+    [SerializeField]
+    List<messageData> _messageDatas = new List<messageData>();
+    MessageCreator _messageCreator;
 
     void Start()
     {
         //先存取聊天室初始的位置。
-        originPos = container.transform.position;
-        //選擇產生"圖片"內容物
-        chatRoomContent = new DialogContent(this);
+        _containerOriginPos = _container.transform.position;
+        //定義直播主分數
+        _liveStreamer.setValue(80);
     }
 
     void Update()
     {
-        //按下空白鍵，產出內容，並將內容丟置聊天室。
+        //按下空白鍵，產出message，並將message丟置container(聊天室)中。
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(waitFrame_addContent(chatRoomContent.createContent()));
+            //檢查目前設定的message型態。
+            checkMessageType();
+            //產生message。
+            GameObject newMessage = _messageCreator.createContent();
+            //將message加入到container(聊天室)中，"StartCoroutine"啟動線程，可以做到延遲的效果。
+            StartCoroutine(waitFrame_addContent(newMessage));
         }
-        //聊天室的動態更新。
-        containerUpdate();
-    }
-    //更新container聊天室的移動效果。
-    void containerUpdate()
-    {
-        if (container.transform.position != originPos)
-            container.transform.position = Vector3.Lerp(container.transform.position, originPos, Time.deltaTime * slideSpeed);
+        //聊天室的動態效果更新。
+        containerDisplayUpdate();
     }
 
-    //加入contet內容鑲嵌至container聊天室中。
-    void addContent(GameObject content)
+    //檢查目前設定的訊息型態。
+    void checkMessageType()
     {
-        //將輸入的內容，實際產生到聊天室中。
-        GameObject contentInstance = Instantiate(content, container.transform);
-        //list追蹤以及刪除物件。
-        listTrack(contentInstance);
-        //調整聊天室的所在高度。
-        adj_Container_Height(contentInstance);
-    }
-
-    //處理content內容的追蹤及刪除。
-    void listTrack(GameObject _contentInstance)
-    {
-        //當list滿了就刪除最早的內容。
-        if (contentsList.Count == listMaxCount)
+        //使用factory method pattern，替換不同creator，將不同型態的meaage生產過程分別封裝，達到單一職責原則。
+        switch (_whitchMessage)
         {
-            //將物件刪除。
-            Destroy(contentsList[0]);
-            //再從清單移除。
-            contentsList.Remove(contentsList[0]);
+            case MessageCreator.WhitchMessage.dialogBox:
+                _messageCreator = new DialogMessage(this);
+                break;
+            case MessageCreator.WhitchMessage.text:
+                _messageCreator = new TextMessage(this);
+                break;
+            case MessageCreator.WhitchMessage.image:
+                _messageCreator = new ImageMessage(this);
+                break;
         }
-        //將內容存到list，方便追蹤物件。
-        contentsList.Add(_contentInstance);
     }
 
-    //根據輸入的內容大小調整聊天室的所在高度。
-    void adj_Container_Height(GameObject _contentInstance)
-    {
-        //抓取內容的高度。
-        float content_hight = _contentInstance.GetComponent<RectTransform>().rect.height;
-        //為了做出訊息由下而上的效果，將聊天室的高度-內容的高度，這樣一來，雖然內容新增，但視覺的高度不變，接著再用位移的方式將內容帶出。
-        container.transform.position -= new Vector3(0, content_hight, 0);
-    }
-    //根據設定的屬性，調整對話框的padding。
-    GameObject adj_Content_padding(GameObject _contentInstance)
-    {
-        //抓取目前對話框的寬高。
-        float w = _contentInstance.GetComponent<RectTransform>().rect.width;
-        float h = _contentInstance.GetComponent<RectTransform>().rect.height;
-        //再將設定的padding加上去。
-        _contentInstance.GetComponent<RectTransform>().sizeDelta = new Vector2(w + DialogBox_Left_Right_padding, h + DialogBox_Top_Botton_padding);
-        return _contentInstance;
-    }
-    //延遲1 frame執行，並且開關Content Size Fitter的設定。
-    IEnumerator waitFrame_addContent(GameObject _contentInstance)
+    //延遲1 frame執行，將輸入的message加入到container(聊天室)中，並且開關Content Size Fitter的設定。
+    IEnumerator waitFrame_addContent(GameObject message)
     {
         //==step one==
-        //實例化物件在場景中，先不指定parent，因為它要先在看不到的地方初始化，不然會讓視覺卡頓。
-        GameObject Instance = Instantiate(_contentInstance);
-        //list追蹤以及刪除物件。
-        listTrack(Instance);
-        //如果內容有Content Size Fitter，就讓他自動調整高度。
-        if (Instance.GetComponent<ContentSizeFitter>())
+        //實例化message物件在場景中，先不指定parent，因為它要先在看不到的地方初始化，不然會造成視覺的卡頓。
+        GameObject messageInstance = Instantiate(message);
+        //list追蹤以及刪除message物件。
+        listTrack(messageInstance);
+        //如果message物件有Content Size Fitter，就讓他自動調整高度。
+        if (messageInstance.GetComponent<ContentSizeFitter>())
         {
-            Instance.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-            Instance.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            messageInstance.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            messageInstance.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         }
-        //等待一個frame，讓他初始化。
+        //等待一個frame，讓他初始化。遇到這行會先return出去，因此能做到等待1frame的效果。
+        //Enumerator的特性就是會保存目前區塊資料，並做完這個區塊的內容，等待個frame就會繼續做。
         yield return null;
 
         //==step two==
-        //將實例化的物件設定parent，就自動交給聊天室的對齊工具調整。
-        Instance.transform.SetParent(container.transform);
-        //如果內容有Content Size Fitter，調整完高度要將constrained關閉，不然讀取不了height。
-        if (Instance.GetComponent<ContentSizeFitter>())
+        //將實例化的message物件設定parent，就自動交給container(聊天室)的對齊工具調整。
+        messageInstance.transform.SetParent(_container.transform);
+        //如果message有Content Size Fitter，調整完高度要將constrained關閉，不然讀取不了height。
+        if (messageInstance.GetComponent<ContentSizeFitter>())
         {
-            Instance.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-            Instance.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            messageInstance.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+            messageInstance.GetComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         }
-        //調整對話框的padding。
-        adj_Content_padding(Instance);
-        //調整聊天室的所在高度。
-        adj_Container_Height(Instance);
+        //調整message的padding。
+        adj_Message_Padding(messageInstance);
+        //調整container(聊天室)的所在高度。
+        adj_Container_Height(messageInstance);
+        //處理message對於直播主的傷害。
+        commentAttackStreamer(messageInstance);
+    }
+
+    //將輸入的message加入到container(聊天室)中。
+    void addContent(GameObject message)
+    {
+        //將輸入的message，實際產生到container(聊天室)中。
+        GameObject messageInstance = Instantiate(message, _container.transform);
+        //list負責追蹤物件，協助我們將先前的message刪除，節省資料空間。
+        listTrack(messageInstance);
+        //調整container(聊天室)的所在高度。
+        adj_Container_Height(messageInstance);
+    }
+
+    //處理message的追蹤及刪除。
+    void listTrack(GameObject messageInstance)
+    {
+        //當list滿了，就刪除最早的內容。
+        if (_messages.Count == _listMaxCount)
+        {
+            //將message刪除。
+            Destroy(_messages[0]);
+            //再從清單移除。
+            _messages.Remove(_messages[0]);
+        }
+        //將最新的message存到list，方便追蹤物件。
+        _messages.Add(messageInstance);
+        //因為message繼承MonoBehaviour，他一定要出現在場中，但我們刪掉後無法保存。因此，這裡使用struct將message的value type保留，包含文字內容、攻擊力等參數。
+        message contentMessage = messageInstance.GetComponent<message>();
+        //使用Shallow Copy，將value type複製到新struct中。
+        _messageDatas.Add(new messageData(contentMessage._userName, contentMessage._text, contentMessage._damage));
+    }
+
+    //根據輸入的message大小調整container(聊天室)的所在高度。
+    void adj_Container_Height(GameObject messageInstance)
+    {
+        //抓取message的高度。
+        float content_hight = messageInstance.GetComponent<RectTransform>().rect.height;
+        //為了做出message由下而上的效果，將container(聊天室)的高度-message的高度，這樣一來，雖然message新增，但視覺的高度不變，接著再用位移的方式將message帶出。
+        _container.transform.position -= new Vector3(0, content_hight, 0);
+    }
+    //根據屬性，調整message的padding。
+    GameObject adj_Message_Padding(GameObject messageInstance)
+    {
+        //抓取目前message的寬高。
+        float w = messageInstance.GetComponent<RectTransform>().rect.width;
+        float h = messageInstance.GetComponent<RectTransform>().rect.height;
+        //再將設定的padding加上去。
+        messageInstance.GetComponent<RectTransform>().sizeDelta = new Vector2(w + _dialogBox_Left_Right_Padding, h + _dialogBox_Top_Botton_Padding);
+        return messageInstance;
+    }
+
+    //處理message對於直播主的傷害。
+    void commentAttackStreamer(GameObject messageInstance)
+    => messageInstance.GetComponent<message>().attack(_liveStreamer);
+
+    //更新container聊天室的移動效果。
+    void containerDisplayUpdate()
+    {
+        //如果container不在原位，就以lerp的方式讓他歸位。
+        if (_container.transform.position != _containerOriginPos)
+            _container.transform.position = Vector3.Lerp(_container.transform.position, _containerOriginPos, Time.deltaTime * _slideSpeed);
     }
 }
