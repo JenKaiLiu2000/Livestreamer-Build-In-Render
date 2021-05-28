@@ -12,7 +12,7 @@ public class chatRoomManerger : MonoBehaviour
     public GameObject _dialogBoxPrefab;
     public GameObject _container;
     public liveStreamer _liveStreamer;
-    public scoreDisplay _scoreDisplay;
+    public chatRoomUiDisplay _chatRoomUiDisplay;
     [Header("Process Controler")]
     [Tooltip("內容的型態")]
     public MessageCreator.WhitchMessage _whitchMessage = MessageCreator.WhitchMessage.dialogBox;
@@ -59,21 +59,24 @@ public class chatRoomManerger : MonoBehaviour
             GameObject newMessage = _messageCreator.createMessage();
             //將message加入到container(聊天室)中，"StartCoroutine"啟動線程，可以做到延遲的效果。
             StartCoroutine(waitFrame_addContent(newMessage));
-            StartCoroutine(updateStreamerScore(newMessage));
+            StartCoroutine(updateChatRoomUI(newMessage));
         }
         //聊天室的動態效果更新。
         containerDisplayUpdate();
     }
 
-    IEnumerator updateStreamerScore(GameObject newMessage)
+    IEnumerator updateChatRoomUI(GameObject newMessage)
     {
-        //處理顯示UI，傷害值。
-        _scoreDisplay.updateDamageUI(_messageDatas[_messageDatas.Count - 1]);
+        //存取message實體物件的message component，避免重複程式碼。
+        message _message = newMessage.GetComponent<message>();
+        //更新攻擊力UI視覺。
+        _chatRoomUiDisplay.updateDamageUI(_message);
+        //因為攻擊力UI視覺是動畫，為了做到Damage打到到直播主的分數才扣分的效果，因此做延遲，可根據之後的視覺特效改變。
         yield return new WaitForSeconds(0.7f);
-        //處理message對於直播主的傷害。
-        commentAttackStreamer(newMessage);
+        //message攻擊直播主。
+        _message.attack(_liveStreamer);
         //處理顯示UI，直播主分數。
-        _scoreDisplay.updateScoreUI(_liveStreamer);
+        _chatRoomUiDisplay.updateStreamerUI(_liveStreamer);
     }
 
     //檢查目前設定的訊息型態。
