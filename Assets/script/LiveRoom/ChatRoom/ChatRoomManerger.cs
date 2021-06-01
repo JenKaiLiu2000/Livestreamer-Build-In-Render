@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 
-public class chatRoomManerger : MonoBehaviour
+public class ChatRoomManerger : MonoBehaviour
 {
     [Header("Reference")]
     public GameObject _imagePrefab;
     public GameObject _textPrefab;
     public GameObject _dialogBoxPrefab;
     public GameObject _container;
-    public liveStreamer _liveStreamer;
-    public chatRoomUiDisplay _chatRoomUiDisplay;
+    public LiveStreamer _liveStreamer;
+    public ChatRoomUiDisplay _chatRoomUiDisplay;
     [Header("Process Controler")]
     [Tooltip("內容的型態")]
     public MessageCreator.WhitchMessage _whitchMessage = MessageCreator.WhitchMessage.dialogBox;
@@ -37,7 +37,7 @@ public class chatRoomManerger : MonoBehaviour
     Vector3 _containerOriginPos;
     List<GameObject> _messages = new List<GameObject>();
     [SerializeField]
-    List<messageData> _messageDatas = new List<messageData>();
+    List<MessageData> _messageDatas = new List<MessageData>();
     MessageCreator _messageCreator;
 
     void Start()
@@ -68,7 +68,7 @@ public class chatRoomManerger : MonoBehaviour
     IEnumerator updateChatRoomUI(GameObject newMessage)
     {
         //存取message實體物件的message component，避免重複程式碼。
-        message _message = newMessage.GetComponent<message>();
+        Message _message = newMessage.GetComponent<Message>();
         //更新攻擊力UI視覺。
         _chatRoomUiDisplay.updateDamageUI(_message);
         //因為攻擊力UI視覺是動畫，為了做到Damage打到到直播主的分數才扣分的效果，因此做延遲，可根據之後的視覺特效改變。
@@ -86,13 +86,13 @@ public class chatRoomManerger : MonoBehaviour
         switch (_whitchMessage)
         {
             case MessageCreator.WhitchMessage.dialogBox:
-                _messageCreator = new DialogMessage(this);
+                _messageCreator = new DialogCreator(this);
                 break;
             case MessageCreator.WhitchMessage.text:
-                _messageCreator = new TextMessage(this);
+                _messageCreator = new TextCreator(this);
                 break;
             case MessageCreator.WhitchMessage.image:
-                _messageCreator = new ImageMessage(this);
+                _messageCreator = new ImageCreator(this);
                 break;
         }
     }
@@ -155,9 +155,9 @@ public class chatRoomManerger : MonoBehaviour
         //將最新的message存到list，方便追蹤物件。
         _messages.Add(messageInstance);
         //因為message繼承MonoBehaviour，他一定要出現在場中，但我們刪掉後無法保存。因此，這裡使用struct將message的value type保留，包含文字內容、攻擊力等參數。
-        message contentMessage = messageInstance.GetComponent<message>();
+        Message contentMessage = messageInstance.GetComponent<Message>();
         //使用Shallow Copy，將value type複製到新struct中。
-        _messageDatas.Add(new messageData(contentMessage._userName, contentMessage._text, contentMessage._damage));
+        _messageDatas.Add(new MessageData(contentMessage._userName, contentMessage._text, contentMessage._damage));
     }
 
     //根據輸入的message大小調整container(聊天室)的所在高度。
@@ -181,7 +181,7 @@ public class chatRoomManerger : MonoBehaviour
 
     //處理message對於直播主的傷害。
     void commentAttackStreamer(GameObject messageInstance)
-    => messageInstance.GetComponent<message>().attack(_liveStreamer);
+    => messageInstance.GetComponent<Message>().attack(_liveStreamer);
 
     //更新container聊天室的移動效果。
     void containerDisplayUpdate()

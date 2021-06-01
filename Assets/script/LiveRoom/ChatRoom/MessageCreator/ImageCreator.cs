@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImageMessage : MessageCreator
+public class ImageCreator : MessageCreator
 {
-    public ImageMessage(chatRoomManerger manerger) : base(manerger) { }
+    public ImageCreator(ChatRoomManerger manerger) : base(manerger) { }
 
     public override GameObject createMessage()
     {
@@ -14,7 +14,7 @@ public class ImageMessage : MessageCreator
         product.GetComponent<RectTransform>().sizeDelta = new Vector2(_manerger._textBox_MaxWidth, Random.Range(50, 200));
 
         //==step two==(設定文字內容與傷害)
-        message _message = _dialog_prefab.GetComponent<message>();
+        Message _message = _dialog_prefab.GetComponent<Message>();
         _message.setText("");
         _message.setDamage(0);
 

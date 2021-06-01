@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextMessage : MessageCreator
+public class TextCreator : MessageCreator
 {
-    public TextMessage(chatRoomManerger manerger) : base(manerger) { }
+    public TextCreator(ChatRoomManerger manerger) : base(manerger) { }
 
     public override GameObject createMessage()
     {
@@ -24,9 +24,9 @@ public class TextMessage : MessageCreator
         textComponent.color = _manerger._textColor;
 
         //==step three==(設定文字內容與傷害)
-        message _message = _dialog_prefab.GetComponent<message>();
+        Message _message = _dialog_prefab.GetComponent<Message>();
         //隨機產生文字，將它賦予到我們的text中。
-        string content = stringGenerator.generateRandomString();
+        string content = StringGenerator.generateRandomString();
         textComponent.text = content;
         _message.setText(content);
         _message.setDamage(Random.Range(-5, 2));

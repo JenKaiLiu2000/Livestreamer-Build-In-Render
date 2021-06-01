@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogMessage : MessageCreator
+public class DialogCreator : MessageCreator
 {
-    public DialogMessage(chatRoomManerger manerger) : base(manerger) { }
+    public DialogCreator(ChatRoomManerger manerger) : base(manerger) { }
 
     public override GameObject createMessage()
     {
@@ -30,8 +30,8 @@ public class DialogMessage : MessageCreator
 
         //==step three==(設定文字內容與傷害)
         //隨機產生文字，將它賦予到我們的text中。
-        message _message = _dialog_prefab.GetComponent<message>();
-        string content = stringGenerator.generateRandomString();
+        Message _message = _dialog_prefab.GetComponent<Message>();
+        string content = StringGenerator.generateRandomString();
         textComponent.text = content;
         _message.setText(content);
         _message.setDamage(Random.Range(-5, 2));

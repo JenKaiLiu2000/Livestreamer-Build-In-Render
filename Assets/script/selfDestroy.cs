@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class selfDestroy : MonoBehaviour
+public class SelfDestroy : MonoBehaviour
 {
-    public void destroy()
+    public void Destroy()
     {
         Destroy(this.gameObject);
     }

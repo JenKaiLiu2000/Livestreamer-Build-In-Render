@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Text;
 
-public class stringGenerator
+public class StringGenerator
 {
     public static string generateRandomString()
     {

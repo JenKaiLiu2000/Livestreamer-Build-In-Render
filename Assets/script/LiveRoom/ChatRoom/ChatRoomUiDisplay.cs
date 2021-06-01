@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class chatRoomUiDisplay : MonoBehaviour
+public class ChatRoomUiDisplay : MonoBehaviour
 {
     public Text _livesteamerScoreText; //直播主分數的TextPrefab。
     public GameObject _messageDamageTextPrefab; //傷害值的TextPrefab。
     public Transform damageInitPos; //傷害值的初始位置。
 
     //更新直播主的UI。
-    public void updateStreamerUI(liveStreamer _liveStreamer)
+    public void updateStreamerUI(LiveStreamer _liveStreamer)
     {
         _livesteamerScoreText.text = $"score: {_liveStreamer.Value}";  
     }
     //更新傷害值的UI。
-    public void updateDamageUI(message message)
+    public void updateDamageUI(Message message)
     {
         //產生傷害值物件(那些飄動的數字)，他身上綁著Timeline會在產生那刻開始播動畫，因此他一出現就在動。
         GameObject instantDamageText = Instantiate(_messageDamageTextPrefab, damageInitPos.position, damageInitPos.rotation, damageInitPos.transform);

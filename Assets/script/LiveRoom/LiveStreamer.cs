@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class liveStreamer : MonoBehaviour
+public class LiveStreamer : MonoBehaviour
 {
     [SerializeField]
     private int _value; //直播主的分數
