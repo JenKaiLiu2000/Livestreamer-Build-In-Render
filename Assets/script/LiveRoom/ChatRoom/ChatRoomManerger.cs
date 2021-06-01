@@ -39,8 +39,8 @@ public class ChatRoomManerger : MonoBehaviour
         //按下空白鍵，產出message，並將message丟置container(聊天室)中。
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //檢查目前設定的message型態。
-            CheckMessageType();
+            //輸入message型態，更改creator的種類。
+            _messageCreator = MessageCreator.SwitchMessageCreator(_whitchMessage,_mdSetting);
             //產生message。
             GameObject newMessage = _messageCreator.CreateMessage(_whitchMode);
             //將message加入到container(聊天室)中，"StartCoroutine"啟動線程，可以做到延遲的效果。
@@ -63,24 +63,6 @@ public class ChatRoomManerger : MonoBehaviour
         _message.attack(_liveStreamer);
         //處理顯示UI，直播主分數。
         _chatRoomUiDisplay.updateStreamerUI(_liveStreamer);
-    }
-
-    //檢查目前設定的訊息型態。
-    void CheckMessageType()
-    {
-        //使用factory method pattern，替換不同creator，將不同型態的meaage生產過程分別封裝，達到單一職責原則。
-        switch (_whitchMessage)
-        {
-            case MessageCreator.WhichMessage.dialogBox:
-                _messageCreator = new DialogCreator(_mdSetting);
-                break;
-            case MessageCreator.WhichMessage.text:
-                _messageCreator = new TextCreator(_mdSetting);
-                break;
-            case MessageCreator.WhichMessage.image:
-                _messageCreator = new ImageCreator(_mdSetting);
-                break;
-        }
     }
 
     //將輸入的message加入到container(聊天室)中。

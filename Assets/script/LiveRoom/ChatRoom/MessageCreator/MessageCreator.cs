@@ -29,6 +29,20 @@ public abstract class MessageCreator
         this._mdSetting = mdSetting;
     }
 
+    public static MessageCreator SwitchMessageCreator(WhichMessage whichMessage, MessageDisplaySetting mdSetting)
+    {
+        switch (whichMessage)
+        {
+            case WhichMessage.dialogBox:
+                return new DialogCreator(mdSetting);
+            case WhichMessage.image:
+                return new ImageCreator(mdSetting);
+            case WhichMessage.text:
+                return new TextCreator(mdSetting);
+        }
+        return null;
+    }
+
     protected abstract GameObject InitialMessage();
 
     /// <summary>

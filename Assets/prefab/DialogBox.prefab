@@ -130,8 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _userName: 
-  _text: TextTextTextText
-  _damage: -1
+  _text: TextTextText
+  _damage: -5
 --- !u!1 &6590943867459543353
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: TextTextTextText
+  m_Text: TextTextText
 --- !u!114 &6733365529164947169
 MonoBehaviour:
   m_ObjectHideFlags: 0
