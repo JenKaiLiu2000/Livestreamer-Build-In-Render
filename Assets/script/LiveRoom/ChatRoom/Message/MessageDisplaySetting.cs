@@ -8,8 +8,6 @@ public class MessageDisplaySetting : MonoBehaviour
     public GameObject _imagePrefab;
     public GameObject _textPrefab;
     public GameObject _dialogBoxPrefab;
-    [Header("Input")]
-    public MessagePaddingEditor _messagePaddingEditor;
     [Header("Dialog Box Setting")]
     [Tooltip("字級大小")]
     public int _fontSize = 30; //字級大小

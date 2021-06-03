@@ -14,9 +14,9 @@ public class ChatRoomManerger : MonoBehaviour
     public MessageDisplaySetting _mdSetting;
     [Header("Process Controler")]
     [Tooltip("產生模式")]
-    public MessageCreator.WhichMode _whitchMode = MessageCreator.WhichMode.origin;
+    public MessageCreator.WhichProcessMode _whitchProcessMode = MessageCreator.WhichProcessMode.customizedPadding;
     [Tooltip("內容的型態")]
-    public MessageCreator.WhichMessage _whitchMessage = MessageCreator.WhichMessage.dialogBox;
+    public MessageCreator.WhichTypeOfMessage _whitchTypeOfMessage = MessageCreator.WhichTypeOfMessage.dialogBox;
     [Tooltip("內容數限量誌")]
     public int _listMaxCount = 15; //內容數限量誌
     [Tooltip("動態滑動效果的速度")]
@@ -26,7 +26,7 @@ public class ChatRoomManerger : MonoBehaviour
     List<GameObject> _messages = new List<GameObject>();
     [SerializeField]
     List<MessageData> _messageDatas = new List<MessageData>();
-    MessageCreator _messageCreator;
+    //MessageCreator _messageCreator;
 
     void Start()
     {
@@ -39,10 +39,8 @@ public class ChatRoomManerger : MonoBehaviour
         //按下空白鍵，產出message，並將message丟置container(聊天室)中。
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //輸入message型態，更改creator的種類。
-            _messageCreator = MessageCreator.SwitchMessageCreator(_whitchMessage,_mdSetting);
             //產生message。
-            GameObject newMessage = _messageCreator.CreateMessage(_whitchMode);
+            GameObject newMessage = MessageCreator.CreateMessage(_mdSetting, _whitchProcessMode, _whitchTypeOfMessage);
             //將message加入到container(聊天室)中，"StartCoroutine"啟動線程，可以做到延遲的效果。
             StartCoroutine(WaitFrameAddToContainer(newMessage));
             StartCoroutine(WaitForSecondsUpdateChatRoomUI(newMessage));
@@ -112,6 +110,7 @@ public class ChatRoomManerger : MonoBehaviour
     {
         //抓取message的高度。
         float content_hight = messageInstance.GetComponent<RectTransform>().rect.height;
+        print(content_hight);
         //為了做出message由下而上的效果，將container(聊天室)的高度-message的高度，這樣一來，雖然message新增，但視覺的高度不變，接著再用位移的方式將message帶出。
         _container.transform.position -= new Vector3(0, content_hight, 0);
     }
