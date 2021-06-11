@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
 
-public class Message_size_move : MonoBehaviour
+public class MessageSizeMove : MonoBehaviour
 {
     [Header("Reference")]
     public GameObject image_prefab;

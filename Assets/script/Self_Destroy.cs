@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SelfDestroy : MonoBehaviour
+public class Self_Destroy : MonoBehaviour
 {
     public void Destroy()
     {

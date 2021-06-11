@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Text;
 
-public class StringGenerator
+public class String_Generator
 {
     public static string generateRandomString()
     {

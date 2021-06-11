@@ -24,7 +24,7 @@ public class CreateText : IMessageCreateType
         //==step three==(設定文字內容與傷害)
         Message _message = _mdSetting._dialogBoxPrefab.GetComponent<Message>();
         //隨機產生文字，將它賦予到我們的text中。
-        string content = StringGenerator.generateRandomString();
+        string content = String_Generator.generateRandomString();
         textComponent.text = content;
         _message.setText(content);
         _message.setDamage(Random.Range(-5, 2));
