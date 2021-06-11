@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 1050995204}
-  onOffText: {fileID: 373290070}
+  onOffText: {fileID: 1153157100}
 --- !u!4 &703902050
 Transform:
   m_ObjectHideFlags: 0
