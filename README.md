@@ -18,4 +18,6 @@ Livestreamer-Build-In-Render-2019.4.13
 
 ![gif](https://s3.gifyu.com/images/1622010911910_2.gif)
 
+- 在**FirebaseDatabase_ReadValue** scene中，使用Unity連接firebase database。
 
+![gif](https://s6.gifyu.com/images/1623470239124.gif)
