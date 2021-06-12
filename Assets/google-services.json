@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "300609199750",
+    "firebase_url": "https://valuesignup-default-rtdb.firebaseio.com",
+    "project_id": "valuesignup",
+    "storage_bucket": "valuesignup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300609199750:android:6edb9f739511c773fabb07",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.test2019"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300609199750-r07qt7cado3f35dash3r9h8i60qhdvbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF49lwYihUkf1_iKBF4fyv07d18vLXHSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300609199750-r07qt7cado3f35dash3r9h8i60qhdvbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
